@@ -4,9 +4,7 @@ spring:
   batch:
     job:
       names: ${job.name:NONE}
-
 logging.level.org.springframework.batch: DEBUG
-
 
 ---
 spring:
@@ -23,7 +21,18 @@ spring:
   profiles: mysql
   datasource:
     hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://27.96.130.90:3306/spring_batch
       username: root
       password: Toyproject1!
-      driver-class-name: com.mysql.jdbc.Driver
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: true
+    properties:
+      hibernate.format_sql: true

@@ -1,6 +1,7 @@
 package com.locky.spring.springbatchinaction.job;
 
 
+import com.locky.spring.springbatchinaction.tasklets.TutorialTasklet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -34,12 +35,12 @@ public class TutorialConfig {
         log.info("tutorialStep Start!!!");
         return stepBuilderFactory.get("tutorialStep")
                 //클래스 생성해서도 가능
-                //.tasklet(new TutorialTasklet())
-                // Tasklet 인터페이스 안에 excute 메소드 밖에없기때문에 람다식으로 변환 가능
-                .tasklet((contribution, chunkContext)->{
-                    log.info("excuted tasklet !!");
-                    return RepeatStatus.FINISHED;
-                })
+                .tasklet(new TutorialTasklet())
+                //Tasklet 인터페이스 안에 excute 메소드 밖에없기때문에 람다식으로 변환 가능
+                //.tasklet((contribution, chunkContext)->{
+                //    log.info("excuted tasklet !!");
+                //    return RepeatStatus.FINISHED;
+                //})
                 .build();
     }
 

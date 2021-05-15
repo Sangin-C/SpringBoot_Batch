@@ -7,6 +7,7 @@ import org.springframework.batch.core.JobExecutionException;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class SchedulerController {
     private final JobLauncher jobLauncher;
 
     // 5초마다 실행
-    //@Scheduled(fixedDelay = 5 * 1000L)
+    @Scheduled(fixedDelay = 5 * 1000L)
     //Cron 표현식
     //    초  분  시  일  월  요일 연도(생략가능)
     //ex) 0  1   1   10  *   *  -> 매월 10일 01시 01분에 실행
