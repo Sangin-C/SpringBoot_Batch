@@ -25,7 +25,6 @@ spring:
       jdbc-url: jdbc:mysql://27.96.130.90:3306/spring_batch
       username: root
       password: Toyproject1!
-
   jpa:
     open-in-view: true
     hibernate:

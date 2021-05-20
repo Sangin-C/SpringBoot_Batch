@@ -1,4 +1,4 @@
-package com.locky.spring.domain;
+package com.locky.spring.springbatchinaction.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,8 +14,8 @@ import javax.persistence.*;
 @Entity
 public class Movie {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     @Column

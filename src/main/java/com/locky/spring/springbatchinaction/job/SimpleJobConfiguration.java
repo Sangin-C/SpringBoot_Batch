@@ -46,7 +46,7 @@ public class SimpleJobConfiguration {
     public Step simpleStep2(@Value("#{jobParameters[requestDate]}") String requestDate) {
         return stepBuilderFactory.get("simpleStep2")
                 // Step 안에서 수행될 기능들을 명시한다.
-                // Tasklet은 Step안에서 단일로 수행될 커스텀한 기능등릉 선언할때 사용한다.
+                // Tasklet은 Step안에서 단일로 수행될 커스텀한 기능등록 선언할때 사용한다.
                 .tasklet((contribution, chunkContext) -> {
                     // Batch가 수행되면 log.info(">>>>> This is Step1") 가 출력된다.
                     log.info(">>>>> This is Step2");
