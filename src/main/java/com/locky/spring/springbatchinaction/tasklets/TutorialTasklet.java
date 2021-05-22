@@ -12,7 +12,6 @@ public class TutorialTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.info("==================== tasklet Start ====================");
-
         return RepeatStatus.FINISHED;
     }
 

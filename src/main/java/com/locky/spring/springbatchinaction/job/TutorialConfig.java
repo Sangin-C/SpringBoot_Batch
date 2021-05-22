@@ -51,9 +51,10 @@ public class TutorialConfig {
         log.info("tutorialStep Start!!!");
         return stepBuilderFactory.get("tutorialStep")
                 //Tasklet 인터페이스 안에 excute 메소드 밖에없기때문에 람다식으로 변환 가능
+                //.tasklet(new TutorialTasklet())
                 .tasklet((contribution, chunkContext)->{
                     log.info("excuted tasklet !!");
-                    //일간박스오피스 Insert
+                    //일간 박스오피스 Insert
                     dailyBoxOfficeApi();
                     return RepeatStatus.FINISHED;
                 })
