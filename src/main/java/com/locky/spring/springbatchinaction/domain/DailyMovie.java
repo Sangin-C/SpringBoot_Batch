@@ -5,70 +5,39 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Movie {
+public class DailyMovie {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-
-    @Column
+    private String boxofficeType;
+    private String showRange;
     private String rnum;
-
-    @Column
     private String rank;
-
-    @Column
     private String rankInten;
-
-    @Column
     private String rankOldAndNew;
-
-    @Column
     private String movieCd;
-
-    @Column
     private String movieNm;
-
-    @Column
     private String openDt;
-
-    @Column
     private String salesAmt;
-
-    @Column
     private String salesShare;
-
-    @Column
     private String salesInten;
-
-    @Column
     private String salesChange;
-
-    @Column
     private String salesAcc;
-
-    @Column
     private String audiCnt;
-
-    @Column
     private String audiInten;
-
-    @Column
     private String audiChange;
-
-    @Column
     private String audiAcc;
-
-    @Column
     private String scrnCnt;
-
-    @Column
     private String showCnt;
 }
