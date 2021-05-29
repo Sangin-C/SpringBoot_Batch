@@ -40,7 +40,6 @@ public class TutorialConfig {
     // JobBuilderFactory를 통해서 tutorialJob을 생성
     @Bean
     public Job tutorialJob(){
-        log.info("tutorialJob Start!!!");
         return jobBuilderFactory.get("tutorialJob")
                 .start(tutorialStep())
                 .build();
@@ -49,18 +48,17 @@ public class TutorialConfig {
     // StepBuilderFactory를 통해서 tutorialStep을 생성
     @Bean
     public Step tutorialStep() {
-        log.info("tutorialStep Start!!!");
         return stepBuilderFactory.get("tutorialStep")
                 //Tasklet 인터페이스 안에 excute 메소드 밖에없기때문에 람다식으로 변환 가능
                 //.tasklet(new TutorialTasklet())
                 .tasklet((contribution, chunkContext)->{
                     log.info("excuted tasklet !!");
                     //일간 박스오피스 Insert
-                    //dailyBoxOffice();
+                    dailyBoxOffice();
                     //주간 박스오피스 Insert
                     //weeklyBoxOffice();
                     //영화 정보
-                    movieList();
+                    //movieList();
                     return RepeatStatus.FINISHED;
                 })
                 .build();
