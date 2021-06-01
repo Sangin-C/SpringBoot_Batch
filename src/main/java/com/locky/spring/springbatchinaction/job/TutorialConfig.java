@@ -12,8 +12,10 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,20 +43,22 @@ public class TutorialConfig {
     @Bean
     public Job tutorialJob(){
         return jobBuilderFactory.get("tutorialJob")
-                .start(tutorialStep())
+                .start(tutorialStep(null))
                 .build();
     }
 
     // StepBuilderFactory를 통해서 tutorialStep을 생성
     @Bean
-    public Step tutorialStep() {
+    @JobScope
+    public Step tutorialStep(@Value("#{jobParameters[index]}") String index) {
         return stepBuilderFactory.get("tutorialStep")
                 //Tasklet 인터페이스 안에 excute 메소드 밖에없기때문에 람다식으로 변환 가능
                 //.tasklet(new TutorialTasklet())
                 .tasklet((contribution, chunkContext)->{
                     log.info("excuted tasklet !!");
+                    log.info("################################index : "+index);
                     //일간 박스오피스 Insert
-                    dailyBoxOffice();
+                    //dailyBoxOffice();
                     //주간 박스오피스 Insert
                     //weeklyBoxOffice();
                     //영화 정보

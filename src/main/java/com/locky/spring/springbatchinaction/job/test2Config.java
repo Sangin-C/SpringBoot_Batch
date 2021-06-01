@@ -57,57 +57,51 @@ public class test2Config {
     public Step collectStep(){
         return stepBuilderFactory.get("collectStep")
                 .<DailyMovie, DailyMovie>chunk(5)
-                .reader(testReader())
-                .writer(testWriter())
+                .reader(restItCollectReader())
+                .writer(itCollectWriter())
                 .build();
     }
 
-/*    @Bean
+    @Bean
     @StepScope
-    public ItemReader<DailyMovie> restItCollectReader() {
+    public ListItemReader<DailyMovie> restItCollectReader() {
         List<DailyMovie> dailyMovie = dailyBoxOffice();
         return new ListItemReader<>(dailyMovie);
-    }*/
+    }
 
-
-    //Rest API로 데이터를 가져온다.
+/*    //Rest API로 데이터를 가져온다.
     @Bean
-    public ItemReader<DailyMovie> testReader(){
+    public ItemReader<DailyMovie> restItCollectReader(){
         return new ItemReader<DailyMovie>(){
             @Override
             public DailyMovie read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-                // API에서 return해준 List받기
-                collectData = dailyBoxOffice();
-                DailyMovie dailyMovie = new DailyMovie();
-                dailyMovie = collectData.get(nextIndex);
-                log.info("Rest Call result : >>>>>>>" + collectData);
-                //ItemReader는 반복문으로 동작한다. 하나씩 Writer로 전달해야 한다.
-                DailyMovie nextCollect = null;
-                //전체 리스트에서 하나씩 추출해서, 하나씩 Writer로 전달
-                if (nextIndex < collectData.size()) {
+                collectData = dailyBoxOffice();//배열을 리스트로 변환
+                DailyMovie nextCollect = null; //ItemReader는 반복문으로 동작한다. 하나씩 Writer로 전달해야 한다.
+                if (nextIndex < collectData.size()) {//전체 리스트에서 하나씩 추출해서, 하나씩 Writer로 전달
                     nextCollect = collectData.get(nextIndex);
                     nextIndex++;
                 }
                 return nextCollect;//DTO 하나씩 반환한다. Rest 호출시 데이터가 없으면 null로 반환.
             }
         };
-    }
+    }*/
 
-    @Bean // beanMapped()를 사용할때는 필수
-    public JdbcBatchItemWriter<DailyMovie> testWriter(){// 오라클 db에 데이터를 쓴다.
+
+/*    @Bean // beanMapped()를 사용할때는 필수
+    public JdbcBatchItemWriter<DailyMovie> itCollectWriter(){// 오라클 db에 데이터를 쓴다.
         return new JdbcBatchItemWriterBuilder<DailyMovie>()
                 .dataSource(dataSource)
                 .sql("INSERT INTO DailyMovie (audiAcc) values (:audiAcc)")
                 .beanMapped()
                 .build();
-    }
-
-/*    @Bean
-    public JpaItemWriter<DailyMovie> itCollectWriter(){
-        JpaItemWriter<DailyMovie> jpaItemWriter = new JpaItemWriter<>();
-        jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
-        return jpaItemWriter;
     }*/
+
+@Bean
+public JpaItemWriter<DailyMovie> itCollectWriter(){
+    JpaItemWriter<DailyMovie> jpaItemWriter = new JpaItemWriter<>();
+    jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
+    return jpaItemWriter;
+}
 
 /*@Bean
 public ItemWriter<DailyMovie> itCollectWriter(){

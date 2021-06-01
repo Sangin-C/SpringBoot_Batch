@@ -30,7 +30,6 @@ public class RPWCofing {
 
     @Bean
     public Job myJob() {
-        log.info("myJob Start!!!");
         return jobBuilderFactory.get("myJob")
                 .start(mystep())
                 .build();
@@ -38,7 +37,6 @@ public class RPWCofing {
 
     @Bean
     public Step mystep() {
-        log.info("mystep Start!!!");
         return stepBuilderFactory.get("mystep")
                 .<DailyMovie, DailyMovie> chunk(30)
                 .reader(myrReader())
@@ -57,6 +55,7 @@ public class RPWCofing {
         return DailyMovie::setInactive;
     }*/
 
+    @Bean
     public ItemWriter<DailyMovie> myWriter() {
         return ((List<? extends DailyMovie> DailyMovieList) ->
                 dailyMovieRepository2.saveAll(DailyMovieList));
